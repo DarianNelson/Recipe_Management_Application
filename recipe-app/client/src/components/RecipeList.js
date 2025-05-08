@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function RecipeList() {
   const [recipes, setRecipes] = useState([]);
@@ -11,27 +12,28 @@ function RecipeList() {
   }, []);
 
   return (
-    <div className="container mt-5">
-      <h2 className="mb-4">🍽️ All Recipes</h2>
+    <div>
+      <h1 className="mb-4">Recipes</h1>
       <div className="row">
         {recipes.map(recipe => (
           <div className="col-md-4 mb-4" key={recipe.id}>
-            <div className="card h-100">
-              {recipe.image_url && (
+            <Link to={`/recipes/${recipe.id}`} className="text-decoration-none text-dark">
+              <div className="card h-100">
                 <img
-                  src={recipe.image_url}
+                  src={recipe.image_url || 'https://via.placeholder.com/150'}
                   className="card-img-top"
                   alt={recipe.title}
                 />
-              )}
-              <div className="card-body">
-                <h5 className="card-title">{recipe.title}</h5>
-                <p className="card-text">
-                  <strong>Ingredients:</strong><br />
-                  {recipe.ingredients}
-                </p>
+                <div className="card-body">
+                  <h5 className="card-title">{recipe.title}</h5>
+                  <p className="card-text">
+                    {recipe.ingredients.length > 100
+                      ? recipe.ingredients.substring(0, 100) + '...'
+                      : recipe.ingredients}
+                  </p>
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
         ))}
       </div>
