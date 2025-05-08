@@ -1,6 +1,7 @@
+// Import the database connection
 const db = require('./database');
 
-// Sample recipes
+// Sample recipe data to populate the database
 const recipes = [
   {
     title: "Spaghetti Carbonara",
@@ -64,17 +65,19 @@ const recipes = [
   }
 ];
 
-// Insert each recipe
+// Seed the database with the sample recipes
 db.serialize(() => {
   const stmt = db.prepare(`
     INSERT INTO recipes (title, ingredients, instructions, image_url)
     VALUES (?, ?, ?, ?)
   `);
 
+  // Insert each recipe using a prepared statement
   recipes.forEach(recipe => {
     stmt.run(recipe.title, recipe.ingredients, recipe.instructions, recipe.image_url);
   });
 
+  // Finalize the statement and close the database connection
   stmt.finalize(() => {
     console.log("✅ Sample recipes inserted successfully!");
     db.close();

@@ -1,31 +1,18 @@
 const express = require('express');
-const cors = require('cors');
 const app = express();
-const port = 5001;
-const db = require('./db/database');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const recipeRoutes = require('./routes/recipes'); // Your routes file
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
 
 // Routes
-const recipesRouter = require('./routes/recipes');
-app.use('/recipes', recipesRouter);
+app.use('/recipes', recipeRoutes);
 
-// Start server
-app.listen(port, () => {
-  console.log(`✅ Server is running at http://localhost:${port}`);
-});
-
-app.get('/recipes/:id', (req, res) => {
-  const id = req.params.id;
-  db.get('SELECT * FROM recipes WHERE id = ?', [id], (err, row) => {
-    if (err) {
-      res.status(500).json({ error: 'Database error' });
-    } else if (!row) {
-      res.status(404).json({ error: 'Recipe not found' });
-    } else {
-      res.json(row);
-    }
-  });
+// Start the server
+const PORT = 5001;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
