@@ -5,7 +5,7 @@ function AddRecipe() {
   const [title, setTitle] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [instructions, setInstructions] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [image, setImage] = useState(null);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -17,17 +17,17 @@ function AddRecipe() {
       return;
     }
 
-    const newRecipe = {
-      title,
-      ingredients,
-      instructions,
-      image_url: imageUrl,
-    };
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('ingredients', ingredients);
+    formData.append('instructions', instructions);
+    if (image) {
+      formData.append('image', image);
+    }
 
     fetch('http://localhost:5001/recipes', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newRecipe),
+      body: formData,
     })
       .then((res) => {
         if (!res.ok) throw new Error('Failed to add recipe');
@@ -47,7 +47,7 @@ function AddRecipe() {
 
         {error && <div className="alert alert-danger">{error}</div>}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="mb-3">
             <label className="form-label">Title *</label>
             <input
@@ -85,13 +85,12 @@ function AddRecipe() {
           </div>
 
           <div className="mb-3">
-            <label className="form-label">Image URL</label>
+            <label className="form-label">Upload Cover Image</label>
             <input
-              type="url"
+              type="file"
               className="form-control"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-              placeholder="Optional - Link to recipe image"
+              accept="image/*"
+              onChange={(e) => setImage(e.target.files[0])}
             />
           </div>
 

@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/Navbar.css';
+import { RecipeContext } from '../contexts/RecipeContext'; 
+import '../styles/Navbar.css'; 
 
-function Navbar({ onSearch }) {
-  const handleSearchChange = (event) => {
-    onSearch(event.target.value);
+function Navbar() {
+  // Access setSearchTerm from the context
+  const { setSearchTerm } = useContext(RecipeContext);
+
+  // Handle search change and update context
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
   };
 
   return (
@@ -15,9 +20,10 @@ function Navbar({ onSearch }) {
           type="text"
           className="form-control me-2"
           placeholder="Search Recipes"
-          onChange={handleSearchChange}
+          onChange={handleSearchChange} // Trigger context update on search
         />
-      <Link to="/add" className="add-recipe-btn ms-2">Add Recipe</Link>      </div>
+        <Link to="/add" className="btn btn-outline-success ms-2">Add Recipe</Link>
+      </div>
     </nav>
   );
 }

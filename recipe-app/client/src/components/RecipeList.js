@@ -1,49 +1,47 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { RecipeContext } from '../contexts/RecipeContext'; 
+import '../styles/RecipeList.css'; 
 
-function RecipeList({ searchQuery }) {
-  const [recipes, setRecipes] = useState([]);
-
-  useEffect(() => {
-    fetch('http://localhost:5001/recipes')
-      .then(res => res.json())
-      .then(data => setRecipes(data))
-      .catch(err => console.error('Error fetching recipes:', err));
-  }, []);
-
-  // Filter recipes based on the search query
-  const filteredRecipes = recipes.filter(recipe =>
-    recipe.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    recipe.ingredients.toLowerCase().includes(searchQuery.toLowerCase())
+function RecipeList() {
+  // Access searchTerm from the context
+  const { recipes, searchTerm } = useContext(RecipeContext); 
+  // Filter recipes based on the search term (case-insensitive match on title or ingredients)
+  const filteredRecipes = recipes.filter((recipe) =>
+    recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    recipe.ingredients.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div>
+    <div className="recipe-list container mt-4">
       <div className="row">
-        {filteredRecipes.length > 0 ? (
-          filteredRecipes.map(recipe => (
-            <div className="col-md-4 mb-4" key={recipe.id}>
-              <Link to={`/recipes/${recipe.id}`} className="text-decoration-none text-dark">
-                <div className="card h-100">
+        {filteredRecipes.length === 0 ? (
+          <p className="text-muted">No recipes match your search.</p>
+        ) : (
+          filteredRecipes.map((recipe) => (
+            <div className="col-md-6 col-lg-4 mb-4" key={recipe.id}>
+              <div className="card h-100 shadow-sm recipe-card">
+                {/* Optional cover image */}
+                {recipe.image_url && (
                   <img
-                    src={recipe.image_url || 'https://via.placeholder.com/150'}
-                    className="card-img-top"
+                    src={recipe.image_url}
                     alt={recipe.title}
+                    className="card-img-top recipe-img"
                   />
-                  <div className="card-body">
-                    <h5 className="card-title">{recipe.title}</h5>
-                    <p className="card-text">
-                      {recipe.ingredients.length > 100
-                        ? `${recipe.ingredients.substring(0, 100)}...`
-                        : recipe.ingredients}
-                    </p>
-                  </div>
+                )}
+                <div className="card-body d-flex flex-column">
+                  <h5 className="card-title">{recipe.title}</h5>
+                  <p className="card-text text-muted">{recipe.ingredients}</p>
+                  <Link
+                    to={`/recipes/${recipe.id}`}
+                    className="btn btn-outline-success mt-auto"
+                  >
+                    View Recipe
+                  </Link>
                 </div>
-              </Link>
+              </div>
             </div>
           ))
-        ) : (
-          <p>No recipes found. Try a different search term.</p>
         )}
       </div>
     </div>

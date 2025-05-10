@@ -13,15 +13,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // Import React Router for routing
 import { BrowserRouter } from 'react-router-dom';
 
+// Import the RecipeProvider context
+import { RecipeProvider } from './contexts/RecipeContext';
+
 // Create the root of the React application
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-// Render the app wrapped in BrowserRouter for routing support
+// Render the app wrapped in both BrowserRouter and RecipeProvider
 root.render(
   <BrowserRouter>
-    <App />
+    <RecipeProvider>
+      <App />
+    </RecipeProvider>
   </BrowserRouter>
 );
 
-// Optional: measure performance of your app
 reportWebVitals();

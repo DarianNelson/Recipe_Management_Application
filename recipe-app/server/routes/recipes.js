@@ -30,24 +30,27 @@ router.get('/:id', (req, res) => {
   });
 });
 
-// POST a new recipe
+// POST a new recipe with optional image upload
 router.post('/', (req, res) => {
-  const { title, ingredients, instructions, image_url } = req.body;
+  const { title, ingredients, instructions } = req.body;
+  // multer will have stored the file info in req.file
+  const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
 
+  // basic validation
   if (!title || !ingredients || !instructions) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
-  const sql = `INSERT INTO recipes (title, ingredients, instructions, image_url)
-               VALUES (?, ?, ?, ?)`;
-  const params = [title, ingredients, instructions, image_url || null];
+  const sql    = `INSERT INTO recipes
+                  (title, ingredients, instructions, image_url)
+                  VALUES (?, ?, ?, ?)`;
+  const params = [title, ingredients, instructions, imageUrl];
 
-  db.run(sql, params, function (err) {
+  db.run(sql, params, function(err) {
     if (err) {
       console.error('Error inserting recipe:', err);
       return res.status(500).json({ error: 'Failed to add recipe' });
     }
-
     res.status(201).json({
       message: 'Recipe added successfully',
       recipe: {
@@ -55,8 +58,8 @@ router.post('/', (req, res) => {
         title,
         ingredients,
         instructions,
-        image_url: image_url || null,
-      },
+        image_url: imageUrl
+      }
     });
   });
 });
