@@ -7,6 +7,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// Import ErrorBoundary component
+import ErrorBoundary from './components/ErrorBoundary';
+
 // Import Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -21,11 +24,13 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 // Render the app wrapped in both BrowserRouter and RecipeProvider
 root.render(
-  <BrowserRouter>
-    <RecipeProvider>
-      <App />
-    </RecipeProvider>
-  </BrowserRouter>
+  <ErrorBoundary>
+    <BrowserRouter>
+      <RecipeProvider>
+        <App />
+      </RecipeProvider>
+    </BrowserRouter>
+  </ErrorBoundary>
 );
 
 reportWebVitals();

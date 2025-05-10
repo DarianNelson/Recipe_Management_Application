@@ -1,16 +1,57 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { RecipeContext } from '../contexts/RecipeContext';
 import { Link } from 'react-router-dom';
-import { RecipeContext } from '../contexts/RecipeContext'; 
-import '../styles/RecipeList.css'; 
+import '../styles/RecipeList.css';
 
 function RecipeList() {
-  // Access searchTerm from the context
-  const { recipes, searchTerm } = useContext(RecipeContext); 
-  // Filter recipes based on the search term (case-insensitive match on title or ingredients)
+  const { searchTerm } = useContext(RecipeContext);
+  const [recipes, setRecipes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const res = await fetch('http://localhost:5001/recipes');
+        if (!res.ok) throw new Error('Failed to fetch recipes');
+        const data = await res.json();
+        setRecipes(data);
+        setIsLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setIsLoading(false);
+      }
+    };
+
+    fetchRecipes();
+  }, []);
+
+  // Filter recipes based on search term
   const filteredRecipes = recipes.filter((recipe) =>
     recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     recipe.ingredients.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Show a loading indicator if still loading
+  if (isLoading) {
+    return (
+      <div className="text-center mt-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+        <p>Loading recipes...</p>
+      </div>
+    );
+  }
+
+  // Show an error message if there's an issue
+  if (error) {
+    return (
+      <div className="alert alert-danger text-center mt-5" role="alert">
+        <strong>Error:</strong> {error}
+      </div>
+    );
+  }
 
   return (
     <div className="recipe-list container mt-4">

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { RecipeContext } from '../contexts/RecipeContext'; 
-import '../styles/Navbar.css'; 
+import { RecipeContext } from '../contexts/RecipeContext';
+import '../styles/Navbar.css';
 
 function Navbar() {
   // Access setSearchTerm from the context
