@@ -2,25 +2,18 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function AddRecipe() {
-  // State variables for form inputs
   const [title, setTitle] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [instructions, setInstructions] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-
-  // State for success/error messages
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-
   const navigate = useNavigate();
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Client-side validation
     if (!title || !ingredients || !instructions) {
-      setError('Please fill out all required fields.');
+      setError('Please fill in all required fields.');
       return;
     }
 
@@ -28,103 +21,87 @@ function AddRecipe() {
       title,
       ingredients,
       instructions,
-      image_url: imageUrl || null,
+      image_url: imageUrl,
     };
 
-    // Send POST request to backend
     fetch('http://localhost:5001/recipes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newRecipe),
     })
-      .then((response) => {
-        if (!response.ok) throw new Error('Failed to add recipe.');
-        return response.json();
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to add recipe');
+        return res.json();
       })
-      .then(() => {
-        // Clear form and show success message
-        setTitle('');
-        setIngredients('');
-        setInstructions('');
-        setImageUrl('');
-        setError('');
-        setSuccess('Recipe added successfully!');
-
-        // Redirect after delay
-        setTimeout(() => {
-          setSuccess('');
-          navigate('/');
-        }, 2000);
-      })
-      .catch((error) => {
-        console.error('Error adding recipe:', error);
-        setError('An error occurred while adding the recipe. Please try again.');
+      .then(() => navigate('/'))
+      .catch((err) => {
+        console.error(err);
+        setError('Failed to add recipe.');
       });
   };
 
   return (
-    <div className="container">
-      <h1>Add a New Recipe</h1>
+    <div className="container py-4">
+      <div className="card shadow-lg rounded-4 p-4">
+        <h2 className="mb-4 text-center">Add New Recipe</h2>
 
-      {/* Display error or success messages */}
-      {error && <div className="alert alert-danger">{error}</div>}
-      {success && <div className="alert alert-success">{success}</div>}
+        {error && <div className="alert alert-danger">{error}</div>}
 
-      <form onSubmit={handleSubmit}>
-        {/* Title input */}
-        <div className="mb-3">
-          <label htmlFor="title" className="form-label">Recipe Title</label>
-          <input
-            type="text"
-            id="title"
-            className="form-control"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">Title *</label>
+            <input
+              type="text"
+              className="form-control"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+              placeholder="e.g. Spaghetti Bolognese"
+            />
+          </div>
 
-        {/* Ingredients textarea */}
-        <div className="mb-3">
-          <label htmlFor="ingredients" className="form-label">Ingredients</label>
-          <textarea
-            id="ingredients"
-            className="form-control"
-            rows="4"
-            value={ingredients}
-            onChange={(e) => setIngredients(e.target.value)}
-            required
-          />
-        </div>
+          <div className="mb-3">
+            <label className="form-label">Ingredients *</label>
+            <textarea
+              className="form-control"
+              rows="4"
+              value={ingredients}
+              onChange={(e) => setIngredients(e.target.value)}
+              required
+              placeholder="Separate ingredients with commas"
+            />
+          </div>
 
-        {/* Instructions textarea */}
-        <div className="mb-3">
-          <label htmlFor="instructions" className="form-label">Instructions</label>
-          <textarea
-            id="instructions"
-            className="form-control"
-            rows="4"
-            value={instructions}
-            onChange={(e) => setInstructions(e.target.value)}
-            required
-          />
-        </div>
+          <div className="mb-3">
+            <label className="form-label">Instructions *</label>
+            <textarea
+              className="form-control"
+              rows="5"
+              value={instructions}
+              onChange={(e) => setInstructions(e.target.value)}
+              required
+              placeholder="Step-by-step instructions"
+            />
+          </div>
 
-        {/* Optional image URL input */}
-        <div className="mb-3">
-          <label htmlFor="imageUrl" className="form-label">Image URL (Optional)</label>
-          <input
-            type="text"
-            id="imageUrl"
-            className="form-control"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-          />
-        </div>
+          <div className="mb-3">
+            <label className="form-label">Image URL</label>
+            <input
+              type="url"
+              className="form-control"
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
+              placeholder="Optional - Link to recipe image"
+            />
+          </div>
 
-        {/* Submit button */}
-        <button type="submit" className="btn btn-primary">Add Recipe</button>
-      </form>
+          <div className="d-flex justify-content-end">
+            <button type="submit" className="btn btn-success">
+              Save Recipe
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

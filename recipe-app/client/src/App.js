@@ -1,32 +1,36 @@
-// Import necessary modules from React Router
 import { Routes, Route } from 'react-router-dom';
-
-// Import components for different routes
+import { useState, useEffect } from 'react';
 import RecipeList from './components/RecipeList';
 import RecipeDetail from './components/RecipeDetail';
+import EditRecipe from './components/RecipeEdit';
 import AddRecipe from './components/AddRecipe';
-import RecipeEdit from './components/RecipeEdit';
+import Navbar from './components/Navbar';
+import { Outlet } from 'react-router-dom';
+import './App.css';
 
 function App() {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Handle search query change
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
   return (
-    <div className="App">
-      {/* Define application routes */}
-      <Routes>
-        {/* Home page displays list of recipes */}
-        <Route path="/" element={<RecipeList />} />
-
-        {/* Detail view for a single recipe */}
-        <Route path="/recipes/:id" element={<RecipeDetail />} />
-
-        {/* Form to add a new recipe */}
-        <Route path="/add" element={<AddRecipe />} />
-
-        {/* Form to edit an existing recipe */}
-        <Route path="/recipes/:id/edit" element={<RecipeEdit />} />
-      </Routes>
-    </div>
+      <div className="App">
+        <Navbar onSearch={handleSearch} />
+        <div className="container" style={{ paddingTop: '80px' }}></div>
+        <Outlet />
+        <Routes>
+          <Route path="/" element={<RecipeList searchQuery={searchQuery} />} />
+          <Route path="/recipes/:id" element={<RecipeDetail />} />
+          <Route path="/edit/:id" element={<EditRecipe />} /> 
+          <Route path="/add" element={<AddRecipe />} />
+        </Routes>
+        <footer className="footer text-center py-4 mt-auto">
+        <small className="text-muted">&copy; {new Date().getFullYear()} Recipe Journal</small>
+      </footer>
+      </div>
   );
 }
 
-// Export the main App component
 export default App;

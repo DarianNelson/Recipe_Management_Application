@@ -1,0 +1,106 @@
+/* Navbar.css */
+.navbar {
+  background-color: #7a9e89; /* deeper sage green for contrast */
+  color: #fffaf0; /* soft champagne text */
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Logo or App Name */
+.navbar h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffe4e1; /* dusty rose accent */
+}
+
+/* Search input */
+.navbar input[type="text"] {
+  padding: 0.5rem;
+  border: 1px solid #dcd2c2;
+  border-radius: 6px;
+  background-color: #fffaf0;
+  color: #4e4e4e;
+}
+
+/* Button next to the search (e.g., Add Recipe) */
+.navbar button {
+  background-color: #d9a5b3; /* dusty rose */
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.navbar button:hover {
+  background-color: #c88c9d;
+}
+
+.add-recipe-btn {
+  background-color: #c39898;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.add-recipe-btn:hover {
+  background-color: #b38484;
+}
+
+.add-recipe-btn,
+.add-recipe-btn:hover {
+  text-decoration: none;
+}
+
+/* Search Input Styling */
+.custom-navbar .form-control {
+  border: 1px solid #a1c4b2; /* Sage green border */
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #fdf6f0; /* Champagne background */
+  color: #4e4e4e;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-navbar .form-control:focus {
+  border-color: #88b19e;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(161, 196, 178, 0.3); /* Soft sage glow */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem 0;
+  }
+
+  .navbar .navbar-brand {
+    font-size: 1.25rem;
+  }
+
+  .navbar .ms-auto {
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
+
+  .navbar input {
+    max-width: 100px;
+  }
+
+  .navbar .btn {
+    font-size: 0.875rem;
+    padding: 0.5rem;
+  }
+}
