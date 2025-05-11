@@ -1,30 +1,12 @@
-import React, { useEffect, useState, useContext } from 'react';
+// src/components/RecipeList.js
+import React, { useContext } from 'react';
 import { RecipeContext } from '../contexts/RecipeContext';
 import { Link } from 'react-router-dom';
 import '../styles/RecipeList.css';
 
 function RecipeList() {
-  const { searchTerm } = useContext(RecipeContext);
-  const [recipes, setRecipes] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const res = await fetch('http://localhost:5001/recipes');
-        if (!res.ok) throw new Error('Failed to fetch recipes');
-        const data = await res.json();
-        setRecipes(data);
-        setIsLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setIsLoading(false);
-      }
-    };
-
-    fetchRecipes();
-  }, []);
+  const { searchTerm, recipes } = useContext(RecipeContext);
+  const { error } = useContext(RecipeContext);
 
   // Filter recipes based on search term
   const filteredRecipes = recipes.filter((recipe) =>
@@ -33,7 +15,7 @@ function RecipeList() {
   );
 
   // Show a loading indicator if still loading
-  if (isLoading) {
+  if (recipes.length === 0) {
     return (
       <div className="text-center mt-5">
         <div className="spinner-border text-primary" role="status">
@@ -44,8 +26,8 @@ function RecipeList() {
     );
   }
 
-  // Show an error message if there's an issue
-  if (error) {
+  // Show an error message if there's an error
+   if (error) {
     return (
       <div className="alert alert-danger text-center mt-5" role="alert">
         <strong>Error:</strong> {error}

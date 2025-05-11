@@ -1,0 +1,18 @@
+{
+  "name": "recipe_management_application",
+  "version": "1.0.0",
+  "description": "## Description This is a Recipe Management Application built with React for the frontend and Node.js/Express with SQLite for the backend. It allows users to browse, view, and add recipes to a database.",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "npm --prefix client start",
+    "server": "npm --prefix server start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
