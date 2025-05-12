@@ -139,12 +139,12 @@ To streamline development, you can run both servers concurrently:
    npm run dev
    ```
 
-## ✅ Final Steps
+## Final Steps
 - Visit the frontend at: [http://localhost:3000](http://localhost:3000)
 - Ensure the backend API is working at: [http://localhost:5001](http://localhost:5001)
 
-## 🤝 Contributions
+## Contributions
 This project is for learning purposes. Contributions, issues, and feedback are welcome and appreciated!
 
-## 📄 License
+## License
 This project currently does not have an open source license. Feel free to fork and explore for personal use.
