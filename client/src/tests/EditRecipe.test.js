@@ -37,7 +37,7 @@ describe('EditRecipe', () => {
         title: 'Spaghetti Bolognese',
         ingredients: 'Spaghetti, Beef, Tomato Sauce',
         instructions: 'Boil pasta, cook beef, mix with sauce',
-        image_url: 'http://example.com/spaghetti.jpg',
+        image_path: 'http://example.com/spaghetti.jpg',
       }),
     });
 
@@ -61,7 +61,7 @@ describe('EditRecipe', () => {
         title: 'Spaghetti Bolognese',
         ingredients: 'Spaghetti, Beef, Tomato Sauce',
         instructions: 'Boil pasta, cook beef, mix with sauce',
-        image_url: 'http://example.com/spaghetti.jpg',
+        image_path: 'http://example.com/spaghetti.jpg',
       }),
     });
 
@@ -86,7 +86,7 @@ describe('EditRecipe', () => {
         title: 'Spaghetti Bolognese',
         ingredients: 'Spaghetti, Beef, Tomato Sauce',
         instructions: 'Boil pasta, cook beef, mix with sauce',
-        image_url: 'http://example.com/spaghetti.jpg',
+        image_path: 'http://example.com/spaghetti.jpg',
       }),
     });
 

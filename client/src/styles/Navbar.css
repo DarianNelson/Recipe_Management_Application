@@ -1,7 +1,7 @@
-/* Navbar.css */
+/* Navbar Styling */
 .navbar {
-  background-color: #7a9e89; /* deeper sage green for contrast */
-  color: #fffaf0; /* soft champagne text */
+  background-color: #7a9e89; /* Deeper sage green for contrast */
+  color: #fffaf0; /* Soft champagne text */
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -17,21 +17,21 @@
   margin: 0;
   font-size: 1.8rem;
   font-weight: 600;
-  color: #ffe4e1; /* dusty rose accent */
+  color: #ffe4e1; /* Dusty rose accent */
 }
 
-/* Search input */
+/* Search Input */
 .navbar input[type="text"] {
   padding: 0.5rem;
   border: 1px solid #dcd2c2;
   border-radius: 6px;
-  background-color: #fffaf0;
+  background-color: #fffaf0; /* Champagne background */
   color: #4e4e4e;
 }
 
 /* Button next to the search (e.g., Add Recipe) */
 .navbar button {
-  background-color: #d9a5b3; /* dusty rose */
+  background-color: #d9a5b3; /* Dusty rose */
   border: none;
   color: white;
   padding: 0.5rem 1rem;
@@ -45,8 +45,9 @@
   background-color: #c88c9d;
 }
 
+/* Add Recipe Button Styling */
 .add-recipe-btn {
-  background-color: #c39898;
+  background-color: #c39898; /* Dusty rose */
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -60,10 +61,10 @@
 
 .add-recipe-btn,
 .add-recipe-btn:hover {
-  text-decoration: none;
+  text-decoration: none; /* Remove underline for the button */
 }
 
-/* Search Input Styling */
+/* Custom Search Input Styling for Form */
 .custom-navbar .form-control {
   border: 1px solid #a1c4b2; /* Sage green border */
   border-radius: 8px;
@@ -75,32 +76,32 @@
 }
 
 .custom-navbar .form-control:focus {
-  border-color: #88b19e;
+  border-color: #88b19e; /* Light sage green focus border */
   outline: none;
   box-shadow: 0 0 0 3px rgba(161, 196, 178, 0.3); /* Soft sage glow */
 }
 
-/* Responsive styles */
+/* Responsive styles for smaller screens */
 @media (max-width: 768px) {
   .navbar {
-    padding: 1rem 0;
+    padding: 1rem 0; /* Adjust padding for mobile view */
   }
 
   .navbar .navbar-brand {
-    font-size: 1.25rem;
+    font-size: 1.25rem; /* Adjust brand font size */
   }
 
   .navbar .ms-auto {
     flex-grow: 1;
-    justify-content: flex-end;
+    justify-content: flex-end; /* Align items to the right */
   }
 
   .navbar input {
-    max-width: 100px;
+    max-width: 100px; /* Limit search input width on mobile */
   }
 
   .navbar .btn {
-    font-size: 0.875rem;
-    padding: 0.5rem;
+    font-size: 0.875rem; /* Smaller button text on mobile */
+    padding: 0.5rem; /* Smaller padding */
   }
 }

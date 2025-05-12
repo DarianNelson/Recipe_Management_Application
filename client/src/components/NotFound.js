@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// A simple 404 error page for when no matching route is found
 function NotFound() {
   return (
     <div className="container text-center mt-5">

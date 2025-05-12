@@ -1,0 +1,141 @@
+/* General Page Styling */
+body {
+  /* Gradient background for a soft, light ambiance */
+  background: linear-gradient(to bottom, #fffaf0, #f3ede7, #fdf6f0); /* Champagne & beige vibe */
+  
+  /* Soft text color for readability */
+  color: #4e4e4e;
+  
+  /* Apply font family for a clean look */
+  font-family: 'Segoe UI', sans-serif;
+  
+  /* Remove default margin and padding */
+  margin: 0;
+  padding: 0;
+}
+
+/* App Container Styling */
+.App {
+  max-width: 1000px; /* Restrict container width */
+  margin: 0 auto; /* Center the container */
+  padding: 2rem; /* Add spacing inside the container */
+  background-color: transparent; /* Transparent background for the app */
+}
+
+/* General Button Styling */
+.btn {
+  font-weight: 500; /* Set font weight for readability */
+  border-radius: 8px; /* Rounded button corners */
+  padding: 0.5rem 1.25rem; /* Add padding for comfort */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition on hover */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Themed Button Variants */
+
+/* Primary Button (Dusty Rose) */
+.btn-primary {
+  background-color: #c39898; /* Dusty rose background */
+  border: none; /* Remove default border */
+  color: white; /* White text color */
+}
+
+.btn-primary:hover {
+  background-color: #b38484; /* Darker dusty rose on hover */
+}
+
+/* Outline Success Button (Sage Green) */
+.btn-outline-success {
+  color: #a1c4b2; /* Sage green text */
+  border: 1px solid #a1c4b2; /* Sage green border */
+}
+
+.btn-outline-success:hover {
+  background-color: #a1c4b2; /* Sage green background on hover */
+  color: white; /* White text color on hover */
+}
+
+/* Warning Button (Champagne) */
+.btn-warning {
+  background-color: #f7e7ce; /* Champagne background */
+  border: none; /* Remove border */
+  color: #4e4e4e; /* Soft text color */
+}
+
+.btn-warning:hover {
+  background-color: #ecd3b9; /* Lighter champagne on hover */
+}
+
+/* Danger Button (Red) */
+.btn-danger {
+  background-color: #cf5c5c; /* Red background */
+  border: none; /* Remove border */
+  color: white; /* White text color */
+}
+
+.btn-danger:hover {
+  background-color: #b54444; /* Darker red on hover */
+}
+
+/* Card Styling */
+.card {
+  background-color: #f7e7ce; /* Champagne background for cards */
+  border: 1px solid #dcd2c2; /* Light border for subtle separation */
+  border-radius: 12px; /* Rounded card corners */
+  overflow: hidden; /* Prevent content overflow */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Soft shadow for depth */
+}
+
+.card:hover {
+  transform: scale(1.02); /* Slightly enlarge card on hover */
+  transition: transform 0.2s ease-in-out; /* Smooth scale effect */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1); /* Larger shadow on hover */
+}
+
+/* Card Title Styling */
+.card-title {
+  color: #4e4e4e; /* Soft text color for the title */
+}
+
+/* Card Text Styling */
+.card-text {
+  max-height: 3rem; /* Limit text height */
+  overflow: hidden; /* Hide overflowed content */
+}
+
+/* Footer Styling */
+.footer {
+  background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+  border-top: 1px solid #e0e0e0; /* Light border at the top */
+}
+
+/* Add responsiveness for smaller screens */
+@media (max-width: 768px) {
+  .App {
+    padding: 1rem; /* Reduced padding for smaller screens */
+  }
+
+  .btn {
+    font-size: 0.875rem; /* Smaller font size for buttons */
+    padding: 0.4rem 1rem; /* Reduced button padding */
+  }
+
+  .card {
+    margin-bottom: 1.5rem; /* Add space between cards */
+  }
+
+  .card-body {
+    padding: 0.75rem; /* Reduced padding inside cards */
+  }
+
+  .navbar {
+    padding: 1rem 0; /* Adjust navbar padding */
+  }
+}
+
+/* Adjustments for tablet-sized screens */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .App {
+    padding: 1.5rem; /* Slightly reduced padding for tablet-sized devices */
+  }
+}

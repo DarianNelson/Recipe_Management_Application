@@ -1,20 +1,19 @@
-// src/components/RecipeList.js
 import React, { useContext } from 'react';
-import { RecipeContext } from '../contexts/RecipeContext';
-import { Link } from 'react-router-dom';
-import '../styles/RecipeList.css';
+import { RecipeContext } from '../contexts/RecipeContext'; // Importing context to access recipes and search term
+import RecipeCard from './RecipeCard'; // Importing recipe card component
+import '../styles/RecipeList.css'; // Import custom styling for the recipe list
 
 function RecipeList() {
-  const { searchTerm, recipes } = useContext(RecipeContext);
-  const { error } = useContext(RecipeContext);
+  const { searchTerm, recipes } = useContext(RecipeContext); // Get search term and recipes from context
+  const { error } = useContext(RecipeContext); // Get error message from context
 
   // Filter recipes based on search term
   const filteredRecipes = recipes.filter((recipe) =>
-    recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    recipe.ingredients.toLowerCase().includes(searchTerm.toLowerCase())
+    recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) || // Match search term with title
+    recipe.ingredients.toLowerCase().includes(searchTerm.toLowerCase()) // Match search term with ingredients
   );
 
-  // Show a loading indicator if still loading
+  // Show a loading indicator if the recipes array is empty
   if (recipes.length === 0) {
     return (
       <div className="text-center mt-5">
@@ -27,43 +26,23 @@ function RecipeList() {
   }
 
   // Show an error message if there's an error
-   if (error) {
+  if (error) {
     return (
       <div className="alert alert-danger text-center mt-5" role="alert">
         <strong>Error:</strong> {error}
       </div>
     );
   }
-
-  return (
+   return (
     <div className="recipe-list container mt-4">
-      <div className="row">
+     <div className="row">
+        {/* If no recipes match the search term */}
         {filteredRecipes.length === 0 ? (
           <p className="text-muted">No recipes match your search.</p>
         ) : (
+          // If there are recipes, map them to a RecipeCard component
           filteredRecipes.map((recipe) => (
-            <div className="col-md-6 col-lg-4 mb-4" key={recipe.id}>
-              <div className="card h-100 shadow-sm recipe-card">
-                {/* Optional cover image */}
-                {recipe.image_url && (
-                  <img
-                    src={recipe.image_url}
-                    alt={recipe.title}
-                    className="card-img-top recipe-img"
-                  />
-                )}
-                <div className="card-body d-flex flex-column">
-                  <h5 className="card-title">{recipe.title}</h5>
-                  <p className="card-text text-muted">{recipe.ingredients}</p>
-                  <Link
-                    to={`/recipes/${recipe.id}`}
-                    className="btn btn-outline-success mt-auto"
-                  >
-                    View Recipe
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <RecipeCard key={recipe.id} recipe={recipe} /> // Pass each recipe to RecipeCard
           ))
         )}
       </div>

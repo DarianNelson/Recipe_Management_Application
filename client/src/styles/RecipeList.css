@@ -1,49 +1,53 @@
-/* RecipeList.css */
+/* Card Styling */
 .card {
-  background-color: #fdf7f3; /* champagne variant */
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease-in-out;
+  background-color: #fdf7f3; /* Champagne variant for a soft, light background */
+  border: 1px solid #ddd; /* Light border for subtle contrast */
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* Prevent content overflow */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Soft shadow for depth */
+  transition: transform 0.2s ease-in-out; /* Smooth scaling on hover */
 }
 
+/* Card Hover Effect */
 .card:hover {
-  transform: scale(1.02);
+  transform: scale(1.02); /* Slightly enlarge card on hover */
 }
 
+/* Card Title Styling */
 .card-title {
-  color: #647d64; /* deeper sage */
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
+  color: #647d64; /* Deeper sage for a muted yet fresh title color */
+  font-size: 1.25rem; /* Slightly larger font for visibility */
+  margin-bottom: 0.5rem; /* Spacing between title and content */
 }
 
+/* Card Text Styling */
 .card-text {
-  color: #a67a85; /* soft dusty rose */
-  font-size: 0.95rem;
+  color: #a67a85; /* Soft dusty rose for a warm, subtle look */
+  font-size: 0.95rem; /* Slightly smaller text for content */
 }
 
-/* Responsive styles */
+/* Responsive styles for smaller screens */
 @media (max-width: 768px) {
   .recipe-card {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem; /* Add space between cards on small screens */
   }
 
   .card-body {
-    padding: 0.75rem;
+    padding: 0.75rem; /* Adjust padding for smaller screens */
   }
 
   .card-title {
-    font-size: 1.125rem;
+    font-size: 1.125rem; /* Slightly smaller title font size for mobile */
   }
 
   .card-text {
-    font-size: 0.75rem;
+    font-size: 0.75rem; /* Smaller text size for better readability on mobile */
   }
 }
 
+/* Responsive styles for medium screens (tablet-size devices) */
 @media (min-width: 768px) and (max-width: 1024px) {
   .recipe-card {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.25rem; /* Slightly smaller margin on tablet-sized devices */
   }
 }

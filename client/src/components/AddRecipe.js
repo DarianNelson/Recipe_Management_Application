@@ -6,47 +6,57 @@ function AddRecipe() {
   const [title, setTitle] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [instructions, setInstructions] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageFile, setImageFile] = useState(null); // For file upload
   const [error, setError] = useState(''); // State for error message
   const navigate = useNavigate(); // To navigate after successfully adding a recipe
 
-  // Function to handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError('');
 
-    // Clear any previous error messages
-    setError('');
+  // Simple validation
+  if (!title || !ingredients || !instructions) {
+    setError('Please fill in all required fields.');
+    return;
+  }
 
-    // Validation check for required fields (title, ingredients, instructions)
-    if (!title || !ingredients || !instructions) {
-      setError('Please fill in all required fields.');
-      return; // Stop function execution if validation fails
+  // Optional: client-side image type/size check
+  if (imageFile) {
+    const validTypes = ['image/jpeg', 'image/png'];
+    if (!validTypes.includes(imageFile.type)) {
+      setError('Only JPG or PNG images are allowed.');
+      return;
     }
 
-    // Create the new recipe object to be sent to the server
-    const newRecipe = {
-      title,
-      ingredients,
-      instructions,
-      image_url: imageUrl,
-    };
+    if (imageFile.size > 5 * 1024 * 1024) {
+      setError('Image must be under 5MB.');
+      return;
+    }
+  }
 
-    // Send POST request to add the recipe
-    fetch('http://localhost:5001/recipes', {
+  // Prepare form data
+  const formData = new FormData();
+  formData.append('title', title);
+  formData.append('ingredients', ingredients);
+  formData.append('instructions', instructions);
+  if (imageFile) {
+    formData.append('image', imageFile); // Matches backend multer field name
+  }
+
+  try {
+    const res = await fetch('http://localhost:5001/recipes', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newRecipe), // Send the new recipe as JSON
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to add recipe'); // Handle errors from the server
-        return res.json(); // Parse the response as JSON
-      })
-      .then(() => navigate('/')) // Navigate back to the homepage after successful submission
-      .catch((err) => {
-        console.error(err); // Log any errors
-        setError('Failed to add recipe.'); // Set an error message if the request fails
-      });
-  };
+      body: formData,
+    });
+
+    if (!res.ok) throw new Error('Failed to add recipe');
+    await res.json();
+    navigate('/');
+  } catch (err) {
+    console.error(err);
+    setError('Failed to add recipe.');
+  }
+};
 
   return (
     <div className="container py-4">
@@ -99,16 +109,25 @@ function AddRecipe() {
 
           {/* Image URL input field */}
           <div className="mb-3">
-            <label className="form-label">Image URL</label>
+            <label className="form-label">Image</label>
             <input
-              type="url"
-              className="form-control"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)} // Update imageUrl state on change
-              placeholder="Optional - Link to recipe image"
+              type="file"
+              name="image"
+              accept="image/png, image/jpeg"
+              onChange={(e) => setImageFile(e.target.files[0])}
             />
           </div>
 
+          {/* Cancel / Back button */}
+          <div className="d-flex justify-content-start mb-3">
+            <button
+              type="button"
+              className="btn btn-outline-secondary"
+              onClick={() => navigate('/')}
+            >
+              Cancel
+            </button>
+          </div> 
           {/* Submit button */}
           <div className="d-flex justify-content-end">
             <button type="submit" className="btn btn-success">
